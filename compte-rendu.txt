@@ -1,0 +1,6 @@
+Dans le script setup.sh je lance le conteneur "fastapi" en premier pour être sur que les images de test retrouvent bien le host "fastapi". 
+Je n'ai pas trouvé comment donner une priorité efficace au lancement des conteneurs même si j'ai l'impression d'être sur la voie avec le mot-clé "depend_on:"
+
+est-ce possible d'avoir une explication svp? 
+
+merci d'avance.

@@ -1,0 +1,51 @@
+version: "3.9"
+services:
+  fastapi:
+    platform: linux/amd64
+    image: datascientest/fastapi:1.0.0
+    container_name: fastapi
+    networks:
+      - exam_network
+    ports:
+      - "8000:8000"
+  authentication:
+    image: authen_exam_docker:latest
+    container_name: authen_exam_docker
+    networks:
+      - exam_network
+    volumes:
+      - ./log_volume:/home
+    environment:
+      - LOG=1
+      - fastapi_address=fastapi
+    depends_on:
+      - fastapi
+  authorization:
+    image: autho_exam_docker:latest
+    container_name: autho_exam_docker
+    networks:
+      - exam_network
+    volumes:
+      - ./log_volume:/home
+    environment:
+      - LOG=1
+      - fastapi_address=fastapi
+    depends_on:
+      - fastapi
+  content:
+    image: content_exam_docker:latest
+    container_name: content_exam_docker
+    networks:
+      - exam_network
+    volumes:
+      - ./log_volume:/home
+    environment:
+      - LOG=1
+      - fastapi_address=fastapi
+      - username=alice
+      - password=wonderland
+    depends_on:
+      - fastapi
+networks:
+  exam_network:
+    
